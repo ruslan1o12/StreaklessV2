@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Streakless Windows</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#08111f;--navy2:#0c1a2e;--navy3:#0f2040;
+  --accent:#2563eb;--accent2:#60a5fa;
+  --white:#fff;--gray:#7a93b4;--text:#c8daf0;--border:rgba(37,99,235,0.18);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--navy);color:var(--white);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;overflow-x:hidden;}
+
+nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(8,17,31,0.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:0 6%;height:62px;}
+.logo{font-size:1.2rem;font-weight:800;letter-spacing:.5px;}
+.logo em{color:var(--accent2);font-style:normal;}
+.nav-links{display:flex;gap:2rem;}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:.88rem;transition:color .2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{background:var(--accent);color:#fff;padding:.42rem 1.15rem;border-radius:6px;text-decoration:none;font-size:.88rem;font-weight:700;transition:background .2s;}
+.nav-cta:hover{background:var(--accent2);}
+
+#hero{min-height:100vh;display:flex;align-items:center;padding:80px 6% 4rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(37,99,235,0.07) 0%,transparent 70%);}
+.hero-content{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%;max-width:1200px;margin:0 auto;}
+@media(max-width:820px){.hero-content{grid-template-columns:1fr;}.hero-art{display:none;}}
+.hero-badge{display:inline-block;background:rgba(37,99,235,0.12);border:1px solid rgba(96,165,250,0.3);color:var(--accent2);font-size:.75rem;padding:.28rem .85rem;border-radius:20px;margin-bottom:1.25rem;letter-spacing:.8px;font-weight:600;}
+h1{font-size:clamp(2.1rem,4.5vw,3.4rem);font-weight:900;line-height:1.12;margin-bottom:1rem;}
+h1 em{color:var(--accent2);font-style:normal;}
+.hero-sub{color:var(--gray);font-size:1rem;margin-bottom:2rem;max-width:440px;}
+.btn-row{display:flex;gap:.85rem;flex-wrap:wrap;}
+.btn{display:inline-block;padding:.72rem 1.8rem;border-radius:8px;font-weight:700;font-size:.95rem;text-decoration:none;cursor:pointer;border:none;transition:all .2s;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-1px);}
+.btn-ghost{background:transparent;border:1px solid rgba(96,165,250,0.3);color:var(--text);}
+.btn-ghost:hover{border-color:var(--accent2);}
+.hero-art{display:flex;align-items:center;justify-content:center;}
+.hero-art svg{width:100%;max-width:420px;filter:drop-shadow(0 8px 32px rgba(37,99,235,0.18));}
+
+@keyframes glint{0%{opacity:0;transform:translateX(-60px)}40%{opacity:.7}100%{opacity:0;transform:translateX(60px)}}
+.win-glint{animation:glint 3.5s ease-in-out infinite;}
+.win-glint2{animation:glint 3.5s ease-in-out infinite 1.2s;}
+.win-glint3{animation:glint 3.5s ease-in-out infinite 2.4s;}
+
+section{padding:5.5rem 6%;}
+.sec-inner{max-width:1100px;margin:0 auto;}
+.sec-tag{color:var(--accent2);font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:.6rem;}
+.sec-title{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin-bottom:.8rem;}
+.sec-sub{color:var(--gray);max-width:500px;margin-bottom:3rem;font-size:.95rem;}
+
+/* SERVICES */
+#services{background:var(--navy2);}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;}
+.svc-card{background:var(--navy3);border:1px solid var(--border);border-radius:14px;padding:1.6rem;transition:border-color .2s,transform .2s;}
+.svc-card:hover{border-color:rgba(96,165,250,0.45);transform:translateY(-3px);}
+.svc-icon{font-size:1.5rem;margin-bottom:.8rem;}
+.svc-card h3{font-size:.97rem;font-weight:700;margin-bottom:.4rem;}
+.svc-card p{color:var(--gray);font-size:.82rem;line-height:1.6;}
+.svc-price{color:var(--accent2);font-weight:800;font-size:1rem;margin-top:.85rem;}
+.svc-note{color:var(--gray);font-size:.72rem;margin-top:.25rem;}
+
+/* PRICING BANNER */
+#pricing{background:var(--navy);}
+.pricing-banner{background:var(--navy3);border:1px solid var(--border);border-radius:16px;padding:2.5rem;text-align:center;max-width:700px;margin:0 auto;}
+.pricing-banner p{color:var(--gray);font-size:.9rem;max-width:480px;margin:.75rem auto 2rem;}
+.price-tiers{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+.tier{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.75rem;min-width:150px;text-align:center;transition:border-color .2s;}
+.tier:hover{border-color:rgba(96,165,250,0.4);}
+.tier-label{font-size:.72rem;color:var(--gray);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.4rem;}
+.tier-price{font-size:1.5rem;font-weight:900;color:var(--accent2);}
+.tier-sub{font-size:.72rem;color:var(--gray);margin-top:.2rem;}
+.pricing-note{font-size:.78rem;color:var(--gray);}
+
+/* GALLERY */
+#gallery{background:var(--navy2);}
+.ba-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem;}
+.ba-card{border-radius:14px;overflow:hidden;border:1px solid var(--border);}
+.ba-sides{display:grid;grid-template-columns:1fr 1fr;}
+.ba-slot{height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;cursor:pointer;transition:filter .2s;overflow:hidden;position:relative;}
+.ba-slot.before{background:linear-gradient(135deg,#131320,#22223a);}
+.ba-slot.after{background:linear-gradient(135deg,#071430,#0f2a5a);}
+.ba-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+.ba-slot-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.3rem;pointer-events:none;}
+.ba-slot-lbl{font-size:.7rem;font-weight:800;letter-spacing:1.5px;}
+.ba-slot.before .ba-slot-lbl{color:#555;}
+.ba-slot.after .ba-slot-lbl{color:var(--accent2);}
+.ba-slot-hint{font-size:.62rem;opacity:.5;color:var(--gray);}
+.ba-slot:hover{filter:brightness(1.15);}
+.ba-mid{background:var(--navy3);padding:.4rem;display:flex;align-items:center;gap:.5rem;font-size:.72rem;color:var(--gray);}
+.ba-mid::before,.ba-mid::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07);}
+.ba-foot{background:var(--navy3);padding:.7rem 1rem;font-size:.82rem;color:var(--gray);}
+.ba-foot strong{display:block;color:var(--white);margin-bottom:.15rem;font-size:.88rem;}
+#img-upload{display:none;}
+
+/* ABOUT */
+#about{background:var(--navy);}
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:center;}
+@media(max-width:820px){.about-grid{grid-template-columns:1fr;}}
+.about-text p{color:var(--gray);line-height:1.85;margin-bottom:1rem;font-size:.95rem;}
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-top:1.8rem;}
+.badge{background:var(--navy2);border:1px solid var(--border);border-radius:10px;padding:.9rem;display:flex;align-items:center;gap:.7rem;}
+.badge-ico{font-size:1.2rem;}
+.badge strong{display:block;font-size:.88rem;}
+.badge p{font-size:.75rem;color:var(--gray);margin:0;}
+.stats{display:flex;flex-direction:column;gap:1.2rem;}
+.stat{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center;}
+.stat-n{font-size:2.4rem;font-weight:900;color:var(--accent2);}
+.stat-l{color:var(--gray);font-size:.82rem;margin-top:.2rem;}
+
+/* CONTACT */
+#contact{background:var(--navy2);}
+.contact-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;}
+@media(max-width:820px){.contact-grid{grid-template-columns:1fr;}}
+.form-stack{display:flex;flex-direction:column;gap:.9rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+@media(max-width:560px){.form-row{grid-template-columns:1fr;}}
+input,select,textarea{width:100%;background:var(--navy3);border:1px solid rgba(37,99,235,0.22);border-radius:8px;color:var(--white);padding:.68rem 1rem;font-size:.88rem;outline:none;transition:border-color .2s;font-family:inherit;}
+input::placeholder,textarea::placeholder{color:var(--gray);}
+input:focus,select:focus,textarea:focus{border-color:var(--accent2);}
+select option{background:var(--navy);}
+textarea{resize:vertical;min-height:110px;}
+.submit-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:.78rem;font-size:.95rem;font-weight:700;cursor:pointer;transition:background .2s;width:100%;}
+.submit-btn:hover{background:var(--accent2);}
+.info-list{display:flex;flex-direction:column;gap:1.3rem;}
+.info-item{display:flex;gap:.9rem;align-items:flex-start;}
+.info-ico{width:38px;height:38px;border-radius:8px;background:rgba(37,99,235,0.13);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.info-item strong{display:block;font-size:.9rem;margin-bottom:.15rem;}
+.info-item span{color:var(--gray);font-size:.85rem;}
+.guarantee{background:var(--navy3);border:1px solid var(--border);border-radius:12px;padding:1.3rem;margin-top:.5rem;}
+.guarantee h4{color:var(--accent2);margin-bottom:.4rem;font-size:.95rem;}
+.guarantee p{color:var(--gray);font-size:.82rem;}
+
+footer{background:var(--navy);border-top:1px solid var(--border);padding:1.8rem 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+footer .logo{font-size:.95rem;}
+footer small{color:var(--gray);font-size:.75rem;}
+.foot-links{display:flex;gap:1.5rem;}
+.foot-links a{color:var(--gray);text-decoration:none;font-size:.78rem;transition:color .2s;}
+.foot-links a:hover{color:var(--white);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Streakless <em>Windows</em></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#about">About</a>
+  </div>
+  <a href="#contact" class="nav-cta">Free Quote</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge">London, Ontario · Residential & Commercial</div>
+      <h1>Crystal Clear.<br><em>Zero Streaks.</em><br>Guaranteed.</h1>
+      <p class="hero-sub">Professional window cleaning, gutter cleaning, pressure washing & more for homes across London, ON.</p>
+      <div class="btn-row">
+        <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
+        <a href="#services" class="btn btn-ghost">Our Services</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a3a6b"/><stop offset="100%" stop-color="#0a1f3a"/></linearGradient>
+          <linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1f3c"/><stop offset="100%" stop-color="#06111e"/></linearGradient>
+          <linearGradient id="wg" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#1d4ed8" stop-opacity=".8"/><stop offset="100%" stop-color="#60a5fa" stop-opacity=".95"/></linearGradient>
+          <clipPath id="wc1"><rect x="58" y="112" width="52" height="44"/></clipPath>
+          <clipPath id="wc2"><rect x="130" y="112" width="52" height="44"/></clipPath>
+          <clipPath id="wc3"><rect x="202" y="112" width="52" height="44"/></clipPath>
+          <clipPath id="wc4"><rect x="274" y="112" width="52" height="44"/></clipPath>
+        </defs>
+        <rect x="0" y="268" width="380" height="32" fill="#060e1a"/>
+        <rect x="20" y="264" width="340" height="7" rx="3" fill="#0a1a30"/>
+        <rect x="38" y="152" width="304" height="118" rx="2" fill="url(#hg)" stroke="#1a3a6b" stroke-width="1"/>
+        <line x1="38" y1="183" x2="342" y2="183" stroke="#1a3060" stroke-width=".8"/>
+        <line x1="38" y1="210" x2="342" y2="210" stroke="#1a3060" stroke-width=".8"/>
+        <line x1="38" y1="237" x2="342" y2="237" stroke="#1a3060" stroke-width=".8"/>
+        <polygon points="24,156 190,58 356,156" fill="url(#rg)" stroke="#0d2040" stroke-width="1.5"/>
+        <rect x="24" y="152" width="332" height="8" rx="2" fill="#0c1f3a"/>
+        <rect x="183" y="55" width="14" height="8" rx="2" fill="#0a1830"/>
+        <line x1="190" y1="63" x2="190" y2="156" stroke="#0d2244" stroke-width=".6" opacity=".5"/>
+        <!-- tiles -->
+        <line x1="100" y1="126" x2="280" y2="126" stroke="#0d2040" stroke-width=".8" opacity=".7"/>
+        <line x1="66" y1="140" x2="314" y2="140" stroke="#0d2040" stroke-width=".8" opacity=".7"/>
+        <!-- chimney -->
+        <rect x="278" y="72" width="26" height="56" rx="2" fill="#0a1830" stroke="#0d2040" stroke-width="1"/>
+        <rect x="275" y="69" width="32" height="7" rx="2" fill="#0c1f3a"/>
+        <!-- windows row 1 -->
+        <rect x="58" y="112" width="52" height="44" rx="3" fill="url(#wg)" stroke="#60a5fa" stroke-width="1.2"/>
+        <line x1="84" y1="112" x2="84" y2="156" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <line x1="58" y1="134" x2="110" y2="134" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <rect class="win-glint" x="60" y="114" width="11" height="38" rx="1" fill="white" fill-opacity=".13" clip-path="url(#wc1)"/>
+        <rect x="130" y="112" width="52" height="44" rx="3" fill="url(#wg)" stroke="#60a5fa" stroke-width="1.2"/>
+        <line x1="156" y1="112" x2="156" y2="156" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <line x1="130" y1="134" x2="182" y2="134" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <rect class="win-glint2" x="132" y="114" width="11" height="38" rx="1" fill="white" fill-opacity=".13" clip-path="url(#wc2)"/>
+        <rect x="202" y="112" width="52" height="44" rx="3" fill="url(#wg)" stroke="#60a5fa" stroke-width="1.2"/>
+        <line x1="228" y1="112" x2="228" y2="156" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <line x1="202" y1="134" x2="254" y2="134" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <rect class="win-glint3" x="204" y="114" width="11" height="38" rx="1" fill="white" fill-opacity=".13" clip-path="url(#wc3)"/>
+        <rect x="274" y="112" width="52" height="44" rx="3" fill="url(#wg)" stroke="#60a5fa" stroke-width="1.2"/>
+        <line x1="300" y1="112" x2="300" y2="156" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <line x1="274" y1="134" x2="326" y2="134" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <rect class="win-glint" x="276" y="114" width="11" height="38" rx="1" fill="white" fill-opacity=".13" clip-path="url(#wc4)"/>
+        <!-- ground floor windows -->
+        <rect x="58" y="202" width="52" height="44" rx="3" fill="url(#wg)" stroke="#60a5fa" stroke-width="1.2"/>
+        <line x1="84" y1="202" x2="84" y2="246" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <line x1="58" y1="224" x2="110" y2="224" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <rect x="268" y="202" width="52" height="44" rx="3" fill="url(#wg)" stroke="#60a5fa" stroke-width="1.2"/>
+        <line x1="294" y1="202" x2="294" y2="246" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <line x1="268" y1="224" x2="320" y2="224" stroke="#93c5fd" stroke-width=".7" opacity=".5"/>
+        <!-- door -->
+        <rect x="162" y="208" width="56" height="62" rx="2" fill="#071020" stroke="#1a3a6b" stroke-width="1"/>
+        <rect x="168" y="213" width="19" height="28" rx="1" fill="#0a1a32" stroke="#1d4ed8" stroke-width=".7"/>
+        <rect x="193" y="213" width="19" height="28" rx="1" fill="#0a1a32" stroke="#1d4ed8" stroke-width=".7"/>
+        <circle cx="190" cy="233" r="2.5" fill="#60a5fa"/>
+        <rect x="155" y="269" width="70" height="5" rx="1" fill="#0d2244"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="sec-inner">
+    <div class="sec-tag">What we offer</div>
+    <div class="sec-title">Our Services</div>
+    <p class="sec-sub">Professional results every time — residential and commercial across London, ON.</p>
+    <div class="svc-grid">
+      <div class="svc-card"><div class="svc-icon">🪟</div><h3>Window Cleaning</h3><p>Streak-free interior and exterior cleaning using professional equipment and solutions.</p><div class="svc-price">From $199</div><div class="svc-note">Contact us for an accurate quote</div></div>
+      <div class="svc-card"><div class="svc-icon">🪣</div><h3>Gutter Cleaning</h3><p>Interior and exterior gutter clearing — removes debris, buildup, and blockages fast.</p><div class="svc-price">From $75</div><div class="svc-note">Contact us for an accurate quote</div></div>
+      <div class="svc-card"><div class="svc-icon">🚪</div><h3>Door Cleaning</h3><p>Front doors, garage doors, and entryways restored to a spotless, like-new finish.</p><div class="svc-price">From $35</div><div class="svc-note">Contact us for an accurate quote</div></div>
+      <div class="svc-card"><div class="svc-icon">💦</div><h3>Pressure Washing</h3><p>Driveways, walkways, siding, and decks blasted clean with high-pressure equipment.</p><div class="svc-price">From $110</div><div class="svc-note">Contact us for an accurate quote</div></div>
+      <div class="svc-card"><div class="svc-icon">🏢</div><h3>Commercial</h3><p>Storefronts, offices, and multi-unit buildings — flexible scheduling available.</p><div class="svc-price">Custom quote</div><div class="svc-note">Contact us for an accurate quote</div></div>
+      <div class="svc-card"><div class="svc-icon">📅</div><h3>Recurring Plans</h3><p>Weekly, bi-weekly, or monthly maintenance — priority booking and discounted rates.</p><div class="svc-price">Save up to 20%</div><div class="svc-note">Contact us for an accurate quote</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="sec-inner">
+    <div class="pricing-banner">
+      <div class="sec-tag" style="margin-bottom:.5rem;">Pricing</div>
+      <div class="sec-title" style="margin-bottom:0;">Window Cleaning Rates</div>
+      <p>Pricing is based on the number of storeys and windows. Every home is different — contact us for an accurate quote tailored to your property.</p>
+      <div class="price-tiers">
+        <div class="tier">
+          <div class="tier-label">1 Storey</div>
+          <div class="tier-price">$175–$225</div>
+          <div class="tier-sub">~10–15 windows</div>
+        </div>
+        <div class="tier">
+          <div class="tier-label">2 Storeys</div>
+          <div class="tier-price">$225–$275</div>
+          <div class="tier-sub">~15–25 windows</div>
+        </div>
+        <div class="tier">
+          <div class="tier-label">3 Storeys</div>
+          <div class="tier-price">$300–$375</div>
+          <div class="tier-sub">~20–30 windows</div>
+        </div>
+      </div>
+      <p class="pricing-note">All prices in CAD · Add-ons (gutters, pressure washing, door cleaning) quoted separately · Free on-site quotes available</p>
+      <div style="margin-top:1.5rem;">
+        <a href="#contact" class="btn btn-primary">Get My Free Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="sec-inner">
+    <div class="sec-tag">Our work</div>
+    <div class="sec-title">Before & After</div>
+    <p class="sec-sub">The difference speaks for itself. Click any slot to add your own photos.</p>
+    <div class="ba-grid">
+      <div class="ba-card">
+        <div class="ba-sides">
+          <div class="ba-slot before" id="s1b" onclick="startUpload('s1b')">
+            <div class="ba-slot-inner"><span class="ba-slot-lbl">BEFORE</span><span class="ba-slot-hint">click to upload</span></div>
+          </div>
+          <div class="ba-slot after" id="s1a" onclick="startUpload('s1a')">
+            <div class="ba-slot-inner"><span class="ba-slot-lbl">AFTER</span><span class="ba-slot-hint">click to upload</span></div>
+          </div>
+        </div>
+        <div class="ba-mid">Before → After</div>
+        <div class="ba-foot"><strong>Residential Windows</strong>East London · 2-storey · 12 windows</div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-sides">
+          <div class="ba-slot before" id="s2b" onclick="startUpload('s2b')">
+            <div class="ba-slot-inner"><span class="ba-slot-lbl">BEFORE</span><span class="ba-slot-hint">click to upload</span></div>
+          </div>
+          <div class="ba-slot after" id="s2a" onclick="startUpload('s2a')">
+            <div class="ba-slot-inner"><span class="ba-slot-lbl">AFTER</span><span class="ba-slot-hint">click to upload</span></div>
+          </div>
+        </div>
+        <div class="ba-mid">Before → After</div>
+        <div class="ba-foot"><strong>Driveway Pressure Wash</strong>North London · Concrete driveway & walkway</div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-sides">
+          <div class="ba-slot before" id="s3b" onclick="startUpload('s3b')">
+            <div class="ba-slot-inner"><span class="ba-slot-lbl">BEFORE</span><span class="ba-slot-hint">click to upload</span></div>
+          </div>
+          <div class="ba-slot after" id="s3a" onclick="startUpload('s3a')">
+            <div class="ba-slot-inner"><span class="ba-slot-lbl">AFTER</span><span class="ba-slot-hint">click to upload</span></div>
+          </div>
+        </div>
+        <div class="ba-mid">Before → After</div>
+        <div class="ba-foot"><strong>Gutter Cleaning</strong>South London · Full exterior clear-out</div>
+      </div>
+    </div>
+    <input type="file" id="img-upload" accept="image/*"/>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="sec-tag">Who we are</div>
+        <div class="sec-title">London's Window Cleaning Experts</div>
+        <p>Streakless Windows was built on one simple promise — leave every surface cleaner than we found it. We serve homeowners and businesses across London, Ontario with the reliability and attention to detail that earns us referrals.</p>
+        <p>We're fully insured, locally operated, and serious about quality. No shortcuts, no streaks, no excuses.</p>
+        <div class="badges">
+          <div class="badge"><div class="badge-ico">✅</div><div><strong>Fully Insured</strong><p>Liability covered</p></div></div>
+          <div class="badge"><div class="badge-ico">🇨🇦</div><div><strong>Locally Owned</strong><p>London, ON based</p></div></div>
+          <div class="badge"><div class="badge-ico">⭐</div><div><strong>5-Star Rated</strong><p>Google reviews</p></div></div>
+          <div class="badge"><div class="badge-ico">🔒</div><div><strong>Guaranteed</strong><p>Satisfaction or redo</p></div></div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Jobs completed</div></div>
+        <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Streak-free guarantee</div></div>
+        <div class="stat"><div class="stat-n">24hr</div><div class="stat-l">Quote turnaround</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-inner">
+    <div class="sec-tag">Get in touch</div>
+    <div class="sec-title">Request a Free Quote</div>
+    <p class="sec-sub">Fill out the form and we'll get back to you within 24 hours.</p>
+    <div class="contact-grid">
+      <div class="form-stack">
+        <div class="form-row">
+          <input type="text" placeholder="First name"/>
+          <input type="text" placeholder="Last name"/>
+        </div>
+        <input type="email" placeholder="Email address"/>
+        <input type="tel" placeholder="Phone number"/>
+        <select>
+          <option value="">Select a service</option>
+          <option>Window Cleaning</option>
+          <option>Exterior Gutter Cleaning</option>
+          <option>Interior Gutter Cleaning</option>
+          <option>Door Cleaning</option>
+          <option>Pressure Washing</option>
+          <option>Multiple Services / Bundle</option>
+        </select>
+        <textarea placeholder="Tell us about your home — storeys, approximate number of windows, anything helpful"></textarea>
+        <button class="submit-btn">Send My Request →</button>
+      </div>
+      <div class="info-list">
+        <div class="info-item"><div class="info-ico">📞</div><div><strong>Phone</strong><span>(519) 555-0100</span></div></div>
+        <div class="info-item"><div class="info-ico">📧</div><div><strong>Email</strong><span>info@streaklesswindows.ca</span></div></div>
+        <div class="info-item"><div class="info-ico">📍</div><div><strong>Service Area</strong><span>London, Ontario & surrounding area</span></div></div>
+        <div class="info-item"><div class="info-ico">🕐</div><div><strong>Hours</strong><span>Mon–Sat: 8am–6pm</span></div></div>
+        <div class="guarantee"><h4>Our Guarantee</h4><p>Not satisfied? We'll come back and redo the job — no questions asked.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">Streakless <em style="color:var(--accent2);font-style:normal">Windows</em></div>
+  <small>© 2025 Streakless Windows · London, ON</small>
+  <div class="foot-links">
+    <a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+let uploadTarget = null;
+
+function startUpload(id) {
+  uploadTarget = id;
+  document.getElementById('img-upload').click();
+}
+
+document.getElementById('img-upload').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file || !uploadTarget) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    const slot = document.getElementById(uploadTarget);
+    // Remove old background
+    slot.style.background = '#000';
+    // Remove existing images if any
+    slot.querySelectorAll('img').forEach(i => i.remove());
+    // Create properly sized image
+    const img = document.createElement('img');
+    img.src = ev.target.result;
+    img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;';
+    slot.insertBefore(img, slot.firstChild);
+    // Hide the text overlay
+    const inner = slot.querySelector('.ba-slot-inner');
+    if (inner) inner.style.opacity = '0';
+  };
+  reader.readAsDataURL(file);
+  this.value = '';
+});
+</script>
+</body>
+</html>
