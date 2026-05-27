@@ -1,5 +1,3 @@
-import { Droplets } from 'lucide-react';
-
 interface HeaderProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
@@ -11,11 +9,11 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => setActiveTab('home')}>
-            <Droplets className="text-blue-600" size={28} />
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">Streakless Windows</h1>
-              <p className="text-xs text-blue-600 font-semibold">Streak Free • Stress Free</p>
-            </div>
+            <img 
+              src="/logo.jpg" 
+              alt="Streakless Windows Logo" 
+              className="h-14 w-auto"
+            />
           </div>
 
           <nav className="hidden md:flex gap-8">

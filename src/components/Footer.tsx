@@ -1,5 +1,3 @@
-import { Droplets } from 'lucide-react';
-
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -9,10 +7,13 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Droplets className="text-blue-400" size={24} />
-              <span className="font-bold text-white">Streakless Windows</span>
+              <img 
+                src="/logo.jpg" 
+                alt="Streakless Windows Logo" 
+                className="h-16 w-auto"
+              />
             </div>
-            <p className="text-sm text-gray-400">Professional window cleaning and exterior services for the Greater Toronto Area.</p>
+            <p className="text-sm text-gray-400">Professional window cleaning and exterior services for Ontario.</p>
           </div>
 
           <div>
