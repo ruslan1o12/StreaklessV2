@@ -12,7 +12,7 @@ export default function Footer() {
               <Droplets className="text-blue-400" size={24} />
               <span className="font-bold text-white">Streakless Windows</span>
             </div>
-            <p className="text-sm text-gray-400">Professional window cleaning and exterior services for the Greater Toronto Area.</p>
+            <p className="text-sm text-gray-400">Professional window cleaning and exterior services for Ontario.</p>
           </div>
 
           <div>

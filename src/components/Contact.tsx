@@ -44,7 +44,7 @@ export default function Contact() {
               <MapPin className="text-blue-400" size={32} />
             </div>
             <h4 className="font-bold text-lg mb-2">Service Area</h4>
-            <p className="text-gray-300">Greater Toronto Area</p>
+            <p className="text-gray-300">Ontario</p>
           </div>
         </div>
 
