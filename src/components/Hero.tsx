@@ -11,7 +11,7 @@ export default function Hero() {
           <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
             Crystal Clear <span className="text-blue-600">Windows</span>
           </h2>
-          <p className="text-xl sm:text-2xl text-gray-600 mb-4 font-medium">Professional Window Cleaning Services for Toronto</p>
+          <p className="text-xl sm:text-2xl text-gray-600 mb-4 font-medium">Professional Window Cleaning Services for Ontario</p>
           <p className="text-lg text-gray-500 mb-8">Streak Free • Stress Free</p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -47,7 +47,7 @@ export default function Hero() {
           </div>
 
           <p className="text-gray-600 mt-8 max-w-2xl mx-auto">
-            Professional window cleaning using advanced water-fed pole technology. Serving Toronto's residential and commercial properties.
+            Professional window cleaning using advanced water-fed pole technology. Serving Ontario's residential and commercial properties.
           </p>
         </div>
       </div>
